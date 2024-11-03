@@ -1,20 +1,32 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Button, Text } from 'react-native';
+import { authenticateWithSpotify } from './components/spotifyAuth';
+import { fetchUserData } from './components/spotifyApi';
 
 export default function App() {
+
+  const [token, setToken] = useState(null);
+  const [userData, setUserData] = useState(null);
+
+  const handleLogin = async () => {
+    const accessToken = await authenticateWithSpotify();
+    setToken(accessToken);
+  };
+
+  useEffect(() => {
+    if (token) {
+      fetchUserData(token).then(data => setUserData(data));
+    }
+  }, [token]);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Button title="Login with Spotify" onPress={handleLogin} />
+      {userData ? (
+        <Text>Welcome, {userData.display_name}</Text>
+      ) : (
+        <Text>Please log in</Text>
+      )}
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
