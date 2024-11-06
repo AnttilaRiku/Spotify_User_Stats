@@ -1,16 +1,17 @@
 import * as AuthSession from 'expo-auth-session';
 
 const CLIENT_ID = '63b34a4e691c4c81bc0eb33debea5e02';
+const CLIENT_SECRET = 'b949c921b84f4c9c994bd562766a9033';
 const REDIRECT_URI = AuthSession.makeRedirectUri({
   scheme: 'spotifyuserstats',
   useProxy: true,
 });
 
-// This is your redirect URI. Add Redirect URI to developer dashboard. (ie. https://auth.expo.dev/@your-expo-username/Spotify_User_Stats)
+// This is your redirect URI. Add Redirect URI to developer dashboard. Working at the moment on everyone.
 console.log('Redirect URI:', REDIRECT_URI);
 
 
-const SCOPE = 'user-read-private user-read-email playlist-read-private';
+const SCOPE = 'user-read-private user-read-email user-top-read playlist-read-private';
 
 const discovery = {
   authorizationEndpoint: 'https://accounts.spotify.com/authorize',

@@ -1,25 +1,42 @@
 import React, { useState, useEffect } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import LoginScreen from './components/LoginScreen';
+import { View, Button } from 'react-native';
+import { authenticateWithSpotify } from './components/spotifyAuth';
+import { fetchUserData, fetchUserTopTracks } from './components/spotifyApi';
 import HomeScreen from './components/HomeScreen';
-
-const Stack = createStackNavigator();
 
 export default function App() {
   const [token, setToken] = useState(null);
   const [userData, setUserData] = useState(null);
+  const [topTracks, setTopTracks] = useState([]);
+
+  const handleLogin = async () => {
+    const accessToken = await authenticateWithSpotify();
+    setToken(accessToken);
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (token) {
+        const userData = await fetchUserData(token);
+        console.log('User Data:', userData); // Log user data
+        const topTracks = await fetchUserTopTracks(token);
+        console.log('Top Tracks:', topTracks); // Log top tracks
+        setUserData(userData);
+        setTopTracks(topTracks);
+      }
+    };
+    fetchData();
+  }, [token]);
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
-        <Stack.Screen name="Login">
-          {(props) => <LoginScreen {...props} setToken={setToken} setUserData={setUserData} />}
-        </Stack.Screen>
-        <Stack.Screen name="Home">
-          {(props) => <HomeScreen {...props} userData={userData} />}
-        </Stack.Screen>
-      </Stack.Navigator>
-    </NavigationContainer>
+    <View style={{ flex: 1 }}>
+      {!userData ? (
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <Button title="Login with Spotify" onPress={handleLogin} />
+        </View>
+      ) : (
+        <HomeScreen userData={userData} topTracks={topTracks} />
+      )}
+    </View>
   );
 }
