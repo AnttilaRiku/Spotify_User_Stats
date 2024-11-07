@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { View, Button } from 'react-native';
+import Navigation from './components/Navigation';
 import { authenticateWithSpotify } from './components/spotifyAuth';
 import { fetchUserData, fetchUserTopTracks } from './components/spotifyApi';
-import HomeScreen from './screens/HomeScreen';
 
 export default function App() {
   const [token, setToken] = useState(null);
@@ -35,7 +35,7 @@ export default function App() {
           <Button title="Login with Spotify" onPress={handleLogin} />
         </View>
       ) : (
-        <HomeScreen userData={userData} topTracks={topTracks} />
+        <Navigation userData={userData} topTracks={topTracks} />
       )}
     </View>
   );

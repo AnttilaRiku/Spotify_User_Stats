@@ -4,37 +4,43 @@ import { View, Text, FlatList, Image, StyleSheet } from 'react-native';
 export default function HomeScreen({ userData, topTracks }) {
   return (
     <View style={styles.container}>
-      <View style={styles.userInfoContainer}>
-        {userData.images.length > 0 && (
-          <Image
-            source={{ uri: userData.images[0].url }}
-            style={styles.profileImage}
-          />
-        )}
-        <View style={styles.userDetails}>
-          <Text style={styles.displayName}>Hello, {userData.display_name}!</Text>
-          <Text style={styles.email}>{userData.email}</Text>
+      {userData && (
+        <View style={styles.userInfoContainer}>
+          {userData.images.length > 0 && (
+            <Image
+              source={{ uri: userData.images[0].url }}
+              style={styles.profileImage}
+            />
+          )}
+          <View style={styles.userDetails}>
+            <Text style={styles.displayName}>Hello, {userData.display_name}!</Text>
+            <Text style={styles.email}>{userData.email}</Text>
+          </View>
         </View>
-      </View>
+      )}
       
       <Text style={styles.topTracksTitle}>Your Top Tracks:</Text>
-      <FlatList
-        data={topTracks}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <View style={styles.trackContainer}>
-            {item.album.images.length > 0 && (
-              <Image
-                source={{ uri: item.album.images[0].url }}
-                style={styles.trackImage}
-              />
-            )}
-            <Text style={styles.trackText}>
-              {item.name} by {item.artists.map(artist => artist.name).join(', ')}
-            </Text>
-          </View>
-        )}
-      />
+      {topTracks && topTracks.length > 0 ? (
+        <FlatList
+          data={topTracks}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <View style={styles.trackContainer}>
+              {item.album.images.length > 0 && (
+                <Image
+                  source={{ uri: item.album.images[0].url }}
+                  style={styles.trackImage}
+                />
+              )}
+              <Text style={styles.trackText}>
+                {item.name} by {item.artists.map(artist => artist.name).join(', ')}
+              </Text>
+            </View>
+          )}
+        />
+      ) : (
+        <Text>No top tracks available.</Text>
+      )}
     </View>
   );
 }
