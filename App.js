@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Button } from 'react-native';
 import { authenticateWithSpotify } from './components/spotifyAuth';
 import { fetchUserData, fetchUserTopTracks } from './components/spotifyApi';
-import HomeScreen from './components/HomeScreen';
+import HomeScreen from './screens/HomeScreen';
 
 export default function App() {
   const [token, setToken] = useState(null);
