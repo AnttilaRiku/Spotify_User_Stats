@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, Linking } from 'react-native';
+import { View, Text, Image, Linking } from 'react-native';
+import styles from '../style/style'
 
 export default function ProfileScreen({ userData }) {
   return (
@@ -13,7 +14,7 @@ export default function ProfileScreen({ userData }) {
             />
           )}
           <View style={styles.userDetails}>
-            <Text style={styles.displayName}>Hello, {userData.display_name}!</Text>
+            <Text style={styles.displayName}>{userData.display_name}</Text>
             <Text style={styles.email}>{userData.email}</Text>
             <Text style={styles.country}>Country: {userData.country}</Text>
             <Text style={styles.spotifyId}>Spotify ID: {userData.id}</Text>
@@ -35,70 +36,3 @@ export default function ProfileScreen({ userData }) {
     </View>
   );
 }
-
-// Define styles object
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 16,
-  },
-  userInfoContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  profileImage: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    marginBottom: 10,
-  },
-  userDetails: {
-    alignItems: 'center',
-    marginTop: 10,
-  },
-  displayName: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    marginBottom: 5,
-  },
-  email: {
-    fontSize: 16,
-    color: 'gray',
-  },
-  country: {
-    fontSize: 16,
-    color: 'gray',
-    marginTop: 5,
-  },
-  spotifyId: {
-    fontSize: 16,
-    color: 'gray',
-    marginTop: 5,
-  },
-  followers: {
-    fontSize: 16,
-    color: 'gray',
-    marginTop: 5,
-  },
-  product: {
-    fontSize: 16,
-    color: 'gray',
-    marginTop: 5,
-  },
-  uri: {
-    fontSize: 16,
-    color: 'gray',
-    marginTop: 5,
-  },
-  externalUrl: {
-    fontSize: 16,
-    color: 'gray',
-    marginTop: 5,
-  },
-  link: {
-    color: 'blue',
-    textDecorationLine: 'underline',
-  },
-});
