@@ -9,7 +9,6 @@ export default function App() {
   const [userData, setUserData] = useState(null);
   const [topTracks, setTopTracks] = useState([]);
 
-  // Kirjautumistoiminto
   const handleLogin = async () => {
     const accessToken = await authenticateWithSpotify();
     setToken(accessToken);

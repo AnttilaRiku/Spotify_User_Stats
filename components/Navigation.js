@@ -33,7 +33,9 @@ export default function Navigation({ userData, topTracks, onLogout }) {
         <Tab.Screen name="Home">
           {(props) => <HomeScreen {...props} userData={userData} topTracks={topTracks} />}
         </Tab.Screen>
-        <Tab.Screen name="Profile" component={ProfileScreen} />
+        <Tab.Screen name="Profile">
+          {(props) => <ProfileScreen {...props} userData={userData} />}
+        </Tab.Screen>
         <Tab.Screen name="Log out">
           {(props) => <LogoutScreen {...props} onLogout={onLogout} />}
         </Tab.Screen>
