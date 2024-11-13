@@ -9,9 +9,18 @@ export default function App() {
   const [userData, setUserData] = useState(null);
   const [topTracks, setTopTracks] = useState([]);
 
+  // Kirjautumistoiminto
   const handleLogin = async () => {
     const accessToken = await authenticateWithSpotify();
     setToken(accessToken);
+  };
+
+  // Kirjautumisen ulos -toiminto
+  const handleLogout = () => {
+    // Tyhjennetään tunnus (token) ja käyttäjätiedot
+    setToken(null);
+    setUserData(null);
+    setTopTracks([]);
   };
 
   useEffect(() => {
@@ -35,7 +44,7 @@ export default function App() {
           <Button title="Login with Spotify" onPress={handleLogin} />
         </View>
       ) : (
-        <Navigation userData={userData} topTracks={topTracks} />
+        <Navigation userData={userData} topTracks={topTracks} onLogout={handleLogout} />
       )}
     </View>
   );
