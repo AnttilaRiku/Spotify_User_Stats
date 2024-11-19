@@ -8,7 +8,7 @@ import LogoutScreen from '../screens/LogoutScreen';
 
 const Tab = createBottomTabNavigator();
 
-export default function Navigation({ userData, topTracks, onLogout }) {
+export default function Navigation({ userData, topTracks,  spotifyApiToken, onLogout }) {
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -31,13 +31,28 @@ export default function Navigation({ userData, topTracks, onLogout }) {
         })}
       >
         <Tab.Screen name="Home">
-          {(props) => <HomeScreen {...props} userData={userData} topTracks={topTracks} />}
+          {(props) => (
+            <HomeScreen
+              {...props}
+              userData={userData}
+              topTracks={topTracks}
+              spotifyApiToken={spotifyApiToken} 
+            />
+          )}
         </Tab.Screen>
         <Tab.Screen name="Profile">
-          {(props) => <ProfileScreen {...props} userData={userData} />}
+          {(props) => (
+            <ProfileScreen
+              {...props}
+              userData={userData}
+              spotifyApiToken={spotifyApiToken} 
+            />
+          )}
         </Tab.Screen>
         <Tab.Screen name="Log out">
-          {(props) => <LogoutScreen {...props} onLogout={onLogout} />}
+          {(props) => (
+            <LogoutScreen {...props} onLogout={onLogout} />
+          )}
         </Tab.Screen>
       </Tab.Navigator>
     </NavigationContainer>
